@@ -1,0 +1,11 @@
+# Example configuration
+# Copy this file to terraform.tfvars and customize for your environment
+
+# The hostname to check
+hostname = "a.subdomain.example.com"
+
+# The Akamai .edgerc section to use
+akamai_config_section = "default"
+
+# Path to the .edgerc file (optional, defaults to ~/.edgerc)
+# edgerc_path = "~/.edgerc"

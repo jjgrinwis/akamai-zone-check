@@ -51,6 +51,12 @@ data "external" "specific_zone_check" {
       exit 1
     fi
     
+    # Exit with error if section parameter is empty
+    if [ -z "$section" ]; then
+      echo '{"exists":"false","error":"empty_section"}' >&2
+      exit 1
+    fi
+    
     # Check if zone exists using the same section as the provider
     if akamai --section "$section" dns retrieve-zoneconfig "$zone" >/dev/null 2>&1; then
       echo "{\"exists\":\"true\",\"zone\":\"$zone\"}"
@@ -71,8 +77,15 @@ data "external" "parent_zone_check" {
     zone="$1"
     section="$2"
     
+    # Exit with error if zone parameter is empty
     if [ -z "$zone" ]; then
       echo '{"exists":"false","error":"empty_zone"}' >&2
+      exit 1
+    fi
+    
+    # Exit with error if section parameter is empty
+    if [ -z "$section" ]; then
+      echo '{"exists":"false","error":"empty_section"}' >&2
       exit 1
     fi
     
